@@ -62,6 +62,36 @@ class UsersController extends AppController
     }
 
     /**
+     * Signup method
+     *
+    */
+    public function signup()
+    {
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $this->set(compact('user'));
+    }
+
+    /**
+     * login method
+     *
+     */
+    public function login()
+    {
+        
+    }
+
+
+
+    /**
      * Edit method
      *
      * @param string|null $id User id.
