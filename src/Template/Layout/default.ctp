@@ -48,9 +48,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <!--
                 <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
                --> 
+               <?php if($this->request->session()->read('Auth')){ ?>
                <li>
                     <?php echo $this->Html->link('Logout',["controller"=>"users","action"=>"logout"]) ?>
                </li>
+               <?php } ?>
             </ul>
         </div>
     </nav>
