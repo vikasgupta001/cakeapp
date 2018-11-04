@@ -92,20 +92,19 @@ class UsersController extends AppController
      */
     public function login()
     {
-        if($this->request->is('post')){
-            if($this->Auth->user('id')){
-                //$this->Flash->warning(__('You are already logged in'));
+        if($this->Auth->user('id')){
+                $this->Flash->warning(__('You are already logged in'));
                 return $this->redirect(['controller'=>'users','action'=>'index']);
-            }else{
+        }
+        if($this->request->is('post')){
                $user = $this->Auth->identify();
                 if($user){
                     $this->Auth->setUser($user);
                     $this->Flash->success(__('You have successfully logged in to your account'));
                     return $this->redirect(['controller'=>'users','action'=>'index']);
-                } 
-            }
-            $this-> Flash -> error(__('This login was not successful'));
-        }
+                }
+                $this-> Flash -> error(__('This login was not successful')); 
+         }
         $this ->set(compact('user'));
         $this->set('_serialiaze',['user']);
     }
@@ -155,4 +154,13 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    /**
+     *  Logout method
+     */
+
+     public function logout()
+     {
+         $this->Flash->success(__("You are successfully logged out."));
+         return $this->redirect($this->Auth->logout());
+     }
 }
